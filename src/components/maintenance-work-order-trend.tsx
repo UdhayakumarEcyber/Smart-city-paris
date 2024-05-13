@@ -138,8 +138,7 @@ return (
         onChange={handleFilterChange}
     />
 </div>
-
-     {/* <ResponsiveContainer width="100%" height="100%">   */}
+ 
      <ResponsiveContainer>  
 
         <BarChart
@@ -158,16 +157,13 @@ return (
             <Bar barSize={25} dataKey="Total_hours_accupied" fill="#0c2e23" />
         </BarChart> 
 
-</ResponsiveContainer> 
+    </ResponsiveContainer> 
 
-</div>  
-</div>
+    </div>  
+    </div>
 
-</WidgetWrapper>
-
-    
-)
-}; 
-
+    </WidgetWrapper> 
+    )
+  };  
 
 export default Maintenance_WorkOrder_Trend; 

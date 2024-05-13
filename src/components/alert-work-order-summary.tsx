@@ -185,8 +185,24 @@ const AlertWorkOrderSummary: React.FunctionComponent<{}> = () => {
   
           <TitleBar title="Alert Work Order Summary" icon='https://static.iviva.com/images/Udhayimages/warning.png'></TitleBar>
   
+          <div className='smart-city_box waste-bin-box '>
+            <div className="smart-city-content" style={{height:'60px'}}>  
           
-          <div className="smart-city-content"  style={{height:'800px'}}>
+                  <div className='status-content'>
+
+                      {alertworkordertData.map((item) => ( 
+                          <div  key={item.id} className={`status ${item.name}`}>
+                              <h3>{item.value}</h3>
+                              <p>{item.name}</p>
+                          </div> 
+                      ))}
+
+                  </div>
+              </div>
+          </div>
+          <div className="smart-city-content" >
+
+         
 
               <div className="chart-top">
                 
@@ -232,7 +248,7 @@ const AlertWorkOrderSummary: React.FunctionComponent<{}> = () => {
                   </FormField>
             </div>
 
-
+            <div className='uk'>
               <DataTable
                   data={(max, last) => getDataItems(max, last)}
                   pageSize={17}
@@ -286,23 +302,10 @@ const AlertWorkOrderSummary: React.FunctionComponent<{}> = () => {
                       }
                   ]}
               /> 
+
           </div>
-
-          <div className='smart-city_box waste-bin-box '>
-            <div className="smart-city-content" style={{height:'100px'}}>  
-          
-                  <div className='status-content'>
-
-                      {alertworkordertData.map((item) => ( 
-                          <div  key={item.id} className={`status ${item.name}`}>
-                              <h3>{item.value}</h3>
-                              <p>{item.name}</p>
-                          </div> 
-                      ))}
-
-                  </div>
-              </div>
-          </div>
+      </div>
+ 
 
 
           </WidgetWrapper>  

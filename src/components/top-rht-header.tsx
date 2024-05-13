@@ -55,14 +55,7 @@ const TopRightHeader: React.FunctionComponent<IMapChangeMode> = (props) => {
           <div className='rgt-head-cont head-date'>{currentDate}</div>
           <div className='rgt-head-cont head-weather'>{currentWeather}</div>
           <div className='rgt-head-cont head-location'>Pullman Hotel</div> 
-      </div>  
-      
-      {/* <div className='power-by-cont'><p>Power By</p> <h1><sub>Hello</sub>Vizz</h1></div> */}
-
-      {/* <div className='power-by-cont'> 
-         <h1><sub>Power By</sub>Vizz</h1>
-      </div> */}
-
+      </div>   
 
     </WidgetWrapper>
   );

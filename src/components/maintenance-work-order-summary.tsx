@@ -8,9 +8,7 @@ const Maintenance_Work_Order_Summary: React.FunctionComponent<{}> = () => {
 
   let [selected, setSelected] = React.useState<string | null>("op-1");
   let [inputValue, setInputValue] = React.useState<string | null>("Work Order");
-  let [inputValue1, setInputValue1] = React.useState<string | null>("Location");
-
- 
+  let [inputValue1, setInputValue1] = React.useState<string | null>("Location"); 
 
   var order_Summarydata = [ 
       {
@@ -213,10 +211,7 @@ const Maintenance_Work_Order_Summary: React.FunctionComponent<{}> = () => {
                       }
                   ]}
               /> 
-          </div>
-
-         
-
+          </div> 
 
           </WidgetWrapper>  
   

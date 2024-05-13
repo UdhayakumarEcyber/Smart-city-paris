@@ -94,45 +94,4 @@ const BuildingSmartBim: React.FunctionComponent<{}> = () => {
 
 export default BuildingSmartBim;
 
-
-
-// import React from 'react';
-// import { WidgetWrapper, TitleBar } from "uxp/components";
-
-// interface IframeWidgetProps {
-//   src: string;
-//   title: string;
-//   width: string;
-//   height: string;
-// }
-
-// const IframeWidget: React.FC<IframeWidgetProps> = ({ src, title, width, height }) => {
-//   return (
-//     <iframe
-//       src={src}
-//       title={title}
-//       width={width}
-//       height={height}
-//       frameBorder="0"
-//       allowFullScreen
-//     />
-//   );
-// };
-
-// const BuildingSmartBim: React.FC = () => {
-//   return (
-//     <WidgetWrapper className="smart-city_box building_layout-box">
-//       <TitleBar title="Smart Bim" icon='https://static.iviva.com/images/Udhayimages/mda-building-images/bim.png'></TitleBar>  
-//       <div className="smart-city-content">  
-//         <IframeWidget
-//           src="https://www.iviva.com/"
-//           title="Let us show you what we can do for you"
-//           width="100%"
-//           height="100%"
-//         />
-//       </div>
-//     </WidgetWrapper>
-//   );
-// };
-
-// export default BuildingSmartBim;
+ 

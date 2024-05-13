@@ -200,9 +200,25 @@ const EmergencyWorkOrderSummary: React.FunctionComponent<{}> = () => {
 
 
           </TitleBar>
+
+          <div className='smart-city_box waste-bin-box '>
+            <div className="smart-city-content" style={{height:'60px'}}>  
+          
+                  <div className='status-content'>
+
+                      {alertworkordertData.map((item) => ( 
+                          <div  key={item.id} className={`status ${item.name}`}>
+                              <h3>{item.value}</h3>
+                              <p>{item.name}</p>
+                          </div> 
+                      ))}
+
+                  </div>
+              </div>
+          </div>
   
           
-          <div className="smart-city-content"  style={{height:'800px'}}>
+          <div className="smart-city-content"  style={{height:'300px'}}>
 
               <div className="chart-top">
                 
@@ -303,21 +319,7 @@ const EmergencyWorkOrderSummary: React.FunctionComponent<{}> = () => {
               /> 
           </div>
 
-          <div className='smart-city_box waste-bin-box '>
-            <div className="smart-city-content" style={{height:'100px'}}>  
-          
-                  <div className='status-content'>
-
-                      {alertworkordertData.map((item) => ( 
-                          <div  key={item.id} className={`status ${item.name}`}>
-                              <h3>{item.value}</h3>
-                              <p>{item.name}</p>
-                          </div> 
-                      ))}
-
-                  </div>
-              </div>
-          </div>
+         
 
 
           </WidgetWrapper>  

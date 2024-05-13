@@ -3,8 +3,7 @@ import { AreaChart, Area, ResponsiveContainer,  LineChart, Line, BarChart, Bar, 
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,LabelList  } from 'recharts';
 
 import { DataList, WidgetWrapper, DynamicSelect, SearchBox, DataTable, MapComponent, TitleBar, ItemListCard, FilterPanel, DataGrid, ItemCard, FormField, Label, Select, Input, DateRangePicker, DatePicker, Checkbox, ProfileImage, Popover, TrendChartComponent, ToggleFilter } from "uxp/components";
- 
- 
+  
 
 const Waste_bin_StatusWidget: React.FunctionComponent<{}> = () => {   
 
@@ -44,19 +43,15 @@ const Waste_bin_StatusWidget: React.FunctionComponent<{}> = () => {
                                 <p>{item.name}</p>
                             </div> 
                         ))} 
-                </div>
- 
+                </div> 
 
-                <div className="technician_chart">  
-                    {/* <Line percent={70} strokeWidth={1.5} strokeColor="#076d49" /> */} 
+                <div className="technician_chart">   
  
                     <div className="progress-bar-container">
                         <div className="progress-bar installedLamps" style={{ width: `${completionPercentage}%`}}></div>
                         <div className="progress-bar working-lamps"  style={{ width: `${completionPercentage1}%`}}></div> 
-                   </div> 
- 
-                        
-   
+                   </div>  
+                         
                     <div className='chart-sec'>
                         <div className='chart-issue'><h3>147</h3><p>Issued</p></div>
                         <div className='chart-pending'><h3>36</h3><p>Pending</p></div>

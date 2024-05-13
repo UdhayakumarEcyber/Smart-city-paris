@@ -16,15 +16,12 @@ const PowerByWidget: React.FunctionComponent<IMapChangeMode> = (props) => {
   return (
     <WidgetWrapper className="smart-city_box power-by-box"> 
 
-        <div className='header-content'>
-                
-
+        <div className='header-content'> 
                 <div className='power-by-cont'> 
                  <p><sub>Powered By</sub></p><div className='raseel_logo'></div> 
               </div>
               
-        </div>
- 
+        </div> 
 
     </WidgetWrapper> 
   );

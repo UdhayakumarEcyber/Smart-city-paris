@@ -469,13 +469,11 @@ const Traffic_Control: React.FunctionComponent<{}> = () => {
                         <div className={`loction-status ${item.location_status}`}>{item.location_status}</div>
     
                       </div>
-                    ))}
-                    
+                    ))} 
                    
                    </div> 
     
-           </div>
-           
+           </div> 
       
        </div> 
 

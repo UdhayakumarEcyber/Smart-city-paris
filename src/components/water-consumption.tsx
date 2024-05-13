@@ -175,36 +175,43 @@ const Water_ConsumptionWidget: React.FunctionComponent<{}> = () => {
                     <div className='status-content'> 
                      
 
-<ResponsiveContainer>
-    <AreaChart
-      width={500}
-      height={350}
-      data={water_consumption_data}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-       <CartesianGrid stroke="#1a6f60cf" strokeDasharray="1 1" />
-      <XAxis dataKey="name" tick={{ fill: '#ffffff' }} />
-      <YAxis tick={{ fill: '#ffffff' }} />
-      <Tooltip />
-      <Legend />
-      <Area type="monotone" dataKey="consumption" stroke="#001912" fill="url(#gradient1)" activeDot={{ r: 8 }} />
+                      <ResponsiveContainer> 
+                          <AreaChart
+                            width={500}
+                            height={350}
+                            data={water_consumption_data}
+                            margin={{
+                              top: 5,
+                              right: 30,
+                              left: 20,
+                              bottom: 5,
+                            }}
+                          >
+                            <CartesianGrid stroke="#1a6f60cf" strokeDasharray="1 1" /> 
 
-      <defs>
-                                        <linearGradient id="gradient1" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#00516a" stopOpacity={0.8} />
-                                            <stop offset="95%" stopColor="#001912" stopOpacity={0.3} />
-                                        </linearGradient>
-
-                                       
-                                            
+                            <XAxis dataKey="name" fill='#ffffff'/>
+                            <YAxis yAxisId="left" fill='#ffffff'/>  
+                            <Tooltip /> 
+                            <Legend />
+                                    <Area
+                                      type="monotone"
+                                      dataKey="consumption"
+                                      name="Consumption"
+                                      stackId="1"
+                                      stroke="#001912"
+                                      fill="url(#gradient1)"
+                                      yAxisId="left"
+                                    /> 
+                            <defs>
+                            <linearGradient id="gradient1" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="10%" stopColor="#01a4ef" stopOpacity={0.8} />
+                              <stop offset="90%" stopColor="#0e2c33" stopOpacity={0.9} />
+                            </linearGradient>
+                                    
                                     </defs>
-    </AreaChart>
-  </ResponsiveContainer>
+                          </AreaChart>    
+
+                         </ResponsiveContainer>
      
                              
                     </div>

@@ -254,8 +254,7 @@ const MyResponsivePie = ({  }) => (
   
 
 return (
-<WidgetWrapper className="smart-city_box segregation_metrics-box"> 
-   
+<WidgetWrapper className="smart-city_box segregation_metrics-box">  
 
 <TitleBar title="Waste Segregation Metrics"  icon='https://static.iviva.com/images/Udhayimages/waste-seg-matrix.png'></TitleBar>  
 
@@ -265,9 +264,7 @@ return (
  </div>  
 
       <div className="body" style={{marginTop: '2em'}}>
-
-      {/* <TitleBar className='sub_title_bar' title="District Waste (Tons)" icon='https://static.iviva.com/images/Udhayimages/garbage1.png'></TitleBar> */}
-
+ 
          <div className='sub_title_bar district-waste'> District Waste (Tons)</div>  
          <div className='afterhours_inner_widget'> 
          

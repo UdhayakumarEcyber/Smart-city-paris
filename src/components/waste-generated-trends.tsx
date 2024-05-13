@@ -34,19 +34,7 @@ const Waste_Generated_Trend: React.FunctionComponent<{}> = () => {
         },
          {
             name: 'Aug', Aug_duration_meeting: 235, Total_hours_booked: 124, Total_hours_accupied: 19, amt: 365,
-        },
-        // {
-        //     name: 'Sep', Aug_duration_meeting: 163, Total_hours_booked: 215, Total_hours_accupied: 236, amt: 654,
-        // },
-        // {
-        //     name: 'Oct', Aug_duration_meeting: 169, Total_hours_booked: 322, Total_hours_accupied: 125, amt: 221,
-        // },
-        // {
-        //     name: 'Nov', Aug_duration_meeting: 321, Total_hours_booked: 516, Total_hours_accupied: 302, amt: 625,
-        // },
-        // {
-        //     name: 'Dec', Aug_duration_meeting: 163, Total_hours_booked: 215, Total_hours_accupied: 236, amt: 654,
-        // }
+        } 
     ];
 
     
@@ -113,19 +101,16 @@ const Waste_Generated_Trend: React.FunctionComponent<{}> = () => {
 
     const handleFilterChangeday = (value:any) => { 
         setToggleFilterValueday(value);
-    }; 
-
+    };  
   
-    return (  
-
+    return (   
 
         <WidgetWrapper className="smart-city_box energy_consumption-box"> 
           
             
             <TitleBar title="Waste Generated Trends" icon='https://static.iviva.com/images/Udhayimages/garbage-white.png'>
                 
-                  
-            <div className='top_tabs'>
+             <div className='top_tabs'>
                 <ToggleFilter  
                       options={[
                           { label: "2023", value: "1" },
@@ -180,11 +165,9 @@ const Waste_Generated_Trend: React.FunctionComponent<{}> = () => {
             </div>  
         </div>
 
-    </WidgetWrapper>
-
+    </WidgetWrapper> 
         
     )
-}; 
-  
+};  
 
 export default Waste_Generated_Trend; 

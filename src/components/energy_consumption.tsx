@@ -26,11 +26,9 @@ const EnergyConsumption: React.FunctionComponent<IWidgetProps> = (props) => {
   const currentDate = new Date();
   currentDate.setDate(0);
 
-  const startDate = currentDate.toISOString();
-  const endDate = new Date().toISOString();
+ 
   const hierarchy = 'منطقة المدينة';
-  const start = startDate;
-  const end = endDate;
+ 
 
   const handleFilterChange = (value: "day" | "week" | "month") => {
     console.log("Selected Filter Value:", value);

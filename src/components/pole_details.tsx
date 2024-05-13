@@ -13,8 +13,7 @@ interface IWidgetProps {
     locationkey: string  
 } 
 
-const Pole_Details: React.FunctionComponent<IWidgetProps> = (props:any) => {
-     
+const Pole_Details: React.FunctionComponent<IWidgetProps> = (props:any) => { 
 
     return (   
 

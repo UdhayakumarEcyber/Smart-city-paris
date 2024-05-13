@@ -54,7 +54,25 @@
         background-position: 0px 0px,0px 0px,0px 0px;
        // background-image: linear-gradient(90deg, #0000 76%, #006056AD 89%, #006056C9 96%),linear-gradient(270deg, #0000 76%, #006056AD 89%, #006056C9 96%),linear-gradient(0deg, #0000 88%, #0060567D 95%);
        
-        background-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 70%, rgb(8 55 50 / 91%) 85%, rgb(0 61 54 / 92%) 96%), linear-gradient(270deg, rgba(0, 0, 0, 0) 70%, rgb(8 55 50 / 91%) 85%, rgb(0 61 54 / 92%) 96%), linear-gradient(0deg, rgba(0, 0, 0, 0) 88%, rgba(0, 96, 86, 0.4901960784) 95%);
+        // background-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 70%, rgb(8 55 50 / 91%) 85%, rgb(0 61 54 / 92%) 96%), linear-gradient(270deg, rgba(0, 0, 0, 0) 70%, rgb(8 55 50 / 91%) 85%, rgb(0 61 54 / 92%) 96%), linear-gradient(0deg, rgba(0, 0, 0, 0) 88%, rgba(0, 96, 86, 0.4901960784) 95%);
+
+        background-image: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0) 70%,
+          rgb(8 55 50 / 61%) 85%,
+          rgb(0 61 54 / 92%) 96%
+        ),
+        linear-gradient(
+          270deg,
+          rgba(0, 0, 0, 0) 70%,
+          rgb(8 55 50 / 61%) 85%,
+          rgb(0 61 54 / 92%) 96%
+        ),
+        linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0) 88%,
+          rgba(0, 96, 86, 0.4901960784) 95%
+        );
 
         pointer-events: none;
 
@@ -510,16 +528,27 @@
                         margin-bottom: 0.5em;
                         // background-color: #ffffff9c;
                         border-radius: 10px;
-                        filter: drop-shadow(0px 0px 2px #fff);
+                        // filter: drop-shadow(0px 0px 2px #fff);
+                        filter: drop-shadow(0px 0px 2px #01291b);
+
+                        // &.co2-icon{
+                        //     background-image: url(https://static.iviva.com/images/Udhayimages/co2-cloud.png);
+                        // }
+                        // &.fuel-consumption-icon{
+                        //     background-image: url(https://static.iviva.com/images/Udhayimages/petrol-pump.png);
+                        // }
+                        // &.s-consumption-icon{
+                        //     background-image: url(https://static.iviva.com/images/Udhayimages/money.png);
+                        // }
 
                         &.co2-icon{
-                            background-image: url(https://static.iviva.com/images/Udhayimages/co2-cloud.png);
+                            background-image: url(https://static.iviva.com/images/Udhayimages/mdaNav/co2-cloud.png);
                         }
                         &.fuel-consumption-icon{
-                            background-image: url(https://static.iviva.com/images/Udhayimages/petrol-pump.png);
+                            background-image: url(https://static.iviva.com/images/Udhayimages/mdaNav/petrol.png);
                         }
                         &.s-consumption-icon{
-                            background-image: url(https://static.iviva.com/images/Udhayimages/money.png);
+                            background-image: url(https://static.iviva.com/images/Udhayimages/mdaNav/money-bag.png);
                         }
                     }
 
@@ -715,7 +744,7 @@
                         padding-bottom: 1em;
                        
                         &.red{
-                            color: #ff0000;
+                            color: #ff2147;
                         }
                         &.green{
                             color: #00e51a;
@@ -754,6 +783,15 @@
                     } 
                 } 
                  
+            }
+
+            .recharts-responsive-container{
+                .recharts-layer{
+                    text{
+                        color: #fff; 
+                        fill: #fff;
+                    } 
+                }
             }
  
         }
@@ -1154,6 +1192,7 @@
                 font-size: 1em;
                 padding: 8px 6px;
                 border-radius: 0;
+                text-shadow: 0px 0px 10px #02eec9;
 
                 &.selected{
                     box-shadow: none;
@@ -1169,9 +1208,13 @@
 
             .uxp-search-box-container{
                 display: inline-block;
-                margin-right: 0.5em;
-                width: 27%;
-                min-width: 27%;
+                // margin-right: 0.5em;
+                // width: 27%;
+                // min-width: 27%;
+ 
+                width: 23%;
+                min-width: 23%;
+                margin-right: 5%;
 
               
 
@@ -1202,6 +1245,7 @@
                                     font-size: 10px;
                                     color: #fff;
                                     padding: 10px 3px;
+                                    text-align: left;
                                 }
 
                              } 
@@ -1766,7 +1810,7 @@
                 cursor: pointer;
                 display: inline-block;
                 width: 100%;
-                padding: 10px 0px;
+                padding: 15px 0px;
 
             span{ 
                 
@@ -1792,6 +1836,7 @@
         } 
             &.waste{
                 span{
+                    // background-image: url(https://static.iviva.com/images/Udhayimages/trash-sock.png);
                     background-image: url(https://static.iviva.com/images/Udhayimages/trash-sock.png);
                 }
             } 
@@ -1807,7 +1852,8 @@
             }  
             &.cctv{
                 span{
-                    background-image: url(https://static.iviva.com/images/Udhayimages/security-camera.png);
+                    // background-image: url(https://static.iviva.com/images/Udhayimages/security-camera.png);
+                    background-image: url(https://static.iviva.com/images/Udhayimages/mdaNav/CCTV.png);
                 }
             } 
             &.water{
@@ -2039,19 +2085,27 @@
     // position: relative;
     // display: inline-flex;
 
+    // align-items: center; 
+    // width: 100%;
+    // height: 100%;
+    // position: absolute;
+    // display: inline-flex; 
+    // right: -17px !important;
+
     align-items: center;
-    // width: 53%;
     width: 100%;
     height: 100%;
     position: absolute;
     display: inline-flex;
-    right: -55px!important;
+    right: 35px !important;
+    top: -2.5em;
     
    
 
        .timer-range {
             display: inline-block;
-             width: 100%;
+            width: 200%;
+            //  width: 140%;
            // width: auto;
             transform: rotate(90deg);
             background: linear-gradient(100deg, rgba(0, 0, 0, 0.100) 0%, rgb(255 255 255 / 100%) 35%, rgba(255, 255, 255, 0) 100%);
@@ -2061,8 +2115,10 @@
             -moz-appearance: none;
             outline: none; 
             height: 2px;
-            position: relative;
+            position: absolute;
+            writing-mode: horizontal-tb;
 
+         
             &::before {  
 
                 background-image: url(https://static.iviva.com/images/Udhayimages/sun.png);
@@ -3307,3 +3363,10 @@
 //     opacity: 0.7;
 //   }
   
+////Rohit/////
+
+.averagevalue-container {
+    text-align: center;
+    color: white;
+    font-weight: 900;
+  }

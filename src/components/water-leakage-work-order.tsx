@@ -185,8 +185,23 @@ const WaterLeakageWorkOrder: React.FunctionComponent<{}> = () => {
   
           <TitleBar title="Water Leakage Work Order" icon='https://static.iviva.com/images/Udhayimages/water-leak.png'></TitleBar>
   
+          <div className='smart-city_box waste-bin-box '>
+            <div className="smart-city-content" style={{height:'60px'}}>  
           
-          <div className="smart-city-content"  style={{height:'800px'}}>
+                  <div className='status-content'>
+
+                      {waterleakagetData.map((item) => ( 
+                          <div  key={item.id} className={`status ${item.name}`}>
+                              <h3>{item.value}</h3>
+                              <p>{item.name}</p>
+                          </div> 
+                      ))}
+
+                  </div>
+              </div>
+          </div>
+
+          <div className="smart-city-content"  style={{height:'300px'}}>
 
               <div className="chart-top">
                 
@@ -286,24 +301,7 @@ const WaterLeakageWorkOrder: React.FunctionComponent<{}> = () => {
                       }
                   ]}
               /> 
-          </div>
-
-          <div className='smart-city_box waste-bin-box '>
-            <div className="smart-city-content" style={{height:'100px'}}>  
-          
-                  <div className='status-content'>
-
-                      {waterleakagetData.map((item) => ( 
-                          <div  key={item.id} className={`status ${item.name}`}>
-                              <h3>{item.value}</h3>
-                              <p>{item.name}</p>
-                          </div> 
-                      ))}
-
-                  </div>
-              </div>
-          </div>
-
+          </div> 
 
           </WidgetWrapper>  
   

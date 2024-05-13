@@ -1,130 +1,146 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { WidgetWrapper, TitleBar, ToggleFilter } from "uxp/components";
 import {
-  WidgetWrapper,
-  TitleBar, ToggleFilter
-} from "uxp/components";
-import { AreaChart, Area, BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { IContextProvider } from '../uxp';
-import StreetLightStatusChart from './lightStatusChart'; 
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import { IContextProvider } from "../uxp";
+import StreetLightStatusChart from "./lightStatusChart";
+import { ComposedChart, Line } from "recharts";
 
+// import EnergyConsumption from './energy_consumption';
 
-  // import EnergyConsumption from './energy_consumption';
+interface IWidgetProps {
+  instanceId?: string;
+  uxpContext?: IContextProvider;
 
-interface IWidgetProps { 
-    instanceId?: string,
-    uxpContext?: IContextProvider,
-
-    ilmAlerts?: {
-        "AC Voltage"?: string;
-        "Load Fail"?: string;
-        "Lux Sensor Blocked"?: string;
-        "Main Fail"?: string;
-        "Partial Failure"?: string;
-        "Power Factor"?: string; 
-      };
-} 
- 
-
-interface EnergyConsumptionData {
-  "Expenditure"?: {
-    [key: string]: { [key: string]: number }[]
+  ilmAlerts?: {
+    "AC Voltage"?: string;
+    "Load Fail"?: string;
+    "Lux Sensor Blocked"?: string;
+    "Main Fail"?: string;
+    "Partial Failure"?: string;
+    "Power Factor"?: string;
   };
 }
+
+interface EnergyConsumptionData {
+  Expenditure?: {
+    [key: string]: { [key: string]: number }[];
+  };
+}
+
+const Street_Light__Status_Widget: React.FunctionComponent<IWidgetProps> = (
+  props
+) => {
+  const [health, setHealth] = useState(null);
+  const [lampdata, setLampData] = useState(null);
+  const [loading, setLoading] = useState(true); // Initialize loading state
+
+  const hierarchy = "منطقة المدينة";
+
+  function getHealthData() {
+    props.uxpContext
+      .executeAction(
+        "TataStreetLightAPI",
+        "Alert Summary",
+        { hierarchy: hierarchy },
+        { json: true }
+      )
+      .then((res: any) => {
+        console.log("Response From API is", res, typeof res);
+        setHealth(res);
+        setLoading(false);
+      })
+      .catch((e: any) => {
+        console.error("Error fetching health data:", e);
+        setLoading(false);
+      });
+  }
+
+  React.useEffect(() => {
+    getHealthData();
+  }, []);
+
+  function getsetLampData() {
+    props.uxpContext
+      .executeAction(
+        "TataStreetLightAPI",
+        "Installed vs Working Lamps (ILM)/Devices (GLM)",
+        {},
+        { json: true }
+      )
+      .then((res: any) => {
+        console.log("Response From lampdata API is", res, typeof res);
+        setLampData(res);
+        setLoading(false);
+      })
+      .catch((e: any) => {
+        console.error("Error fetching health data:", e);
+        setLoading(false);
+      });
+  }
+
+  React.useEffect(() => {
+    getsetLampData();
+  }, []);
+
+  const calculatePercentage = (value: number, total: number) => {
+    return ((value / total) * 100).toFixed(2);
+  };
+
+  const [energyConsumptionData, setEnergyConsumptionData] =
+    React.useState<EnergyConsumptionData>({});
+  const [toggleFilterValue, setToggleFilterValue] = useState<
+    "day" | "week" | "month"
+  >("day");
+  const [filter, setFilter] = useState<"Day" | "Week" | "Month">("Day");
+
+  const currentDate = new Date();
+  currentDate.setDate(0);
+
+  const startDate = currentDate.toISOString();
+  const endDate = new Date().toISOString();
  
-const Street_Light__Status_Widget: React.FunctionComponent<IWidgetProps> = (props) => {    
-    
-    const [health, setHealth] = useState(null); 
-    const [lampdata,setLampData] = useState(null);
-    const [loading, setLoading] = useState(true); // Initialize loading state
-    
-    const hierarchy = 'منطقة المدينة';   
-  
-    function getHealthData() { 
-      props.uxpContext
-        .executeAction("TataStreetLightAPI", "Alert Summary", { hierarchy: hierarchy }, { json: true })
-        .then((res: any) => {
-          console.log("Response From API is", res, typeof res);
-          setHealth(res);
-          setLoading(false);  
-        })
-        .catch((e: any) => {
-          console.error("Error fetching health data:", e);
-          setLoading(false);  
-        });
-    } 
-    
-    React.useEffect(() => {
-      getHealthData();
-    }, []); 
 
-
-    function getsetLampData () {   
-        props.uxpContext.executeAction("TataStreetLightAPI", "Installed vs Working Lamps (ILM)/Devices (GLM)", {}, { json: true })
-        .then((res: any) => {
-          console.log("Response From lampdata API is", res, typeof res);
-          setLampData(res);
-          setLoading(false);  
-        })
-        .catch((e: any) => {
-          console.error("Error fetching health data:", e);
-          setLoading(false);  
-        });
+  const handleFilterChange = (value: "day" | "week" | "month") => {
+    console.log("Selected Filter Value:", value);
+    setToggleFilterValue(value);
+    if (value === "day") {
+      setFilter("Day");
+    } else if (value === "week") {
+      setFilter("Week");
+    } else if (value === "month") {
+      setFilter("Month");
     }
-    
-    React.useEffect(() =>{
-      getsetLampData();
-    }, []) 
- 
-  
-    const calculatePercentage = (value: number, total: number) => {
-      return ((value / total) * 100).toFixed(2);
-    };    
-    
-     
-
-
-    const [energyConsumptionData, setEnergyConsumptionData] = React.useState<EnergyConsumptionData>({});
-    const [toggleFilterValue, setToggleFilterValue] = useState<"day" | "week" | "month">("day");
-    const [filter, setFilter] = useState<'Day' | 'Week' | 'Month'>('Day');
-   
-    const currentDate = new Date();
-    currentDate.setDate(0);  
-
-    const startDate = currentDate.toISOString();  
-    const endDate = new Date().toISOString(); 
-    // const hierarchy = 'منطقة المدينة';
-    const start = startDate;
-    const end = endDate;   
-  
-    const handleFilterChange = (value: "day" | "week" | "month") => {
-      console.log("Selected Filter Value:", value);
-      setToggleFilterValue(value);
-      if (value === 'day') {
-        setFilter('Day');
-      } else if (value === 'week') {
-        setFilter('Week');
-      } else if (value === 'month') { 
-        setFilter('Month'); 
-      }
-    };    
- 
+  };
 
   console.log("for Check context", props.uxpContext);
 
-
-    const fetchData = async () => {
-      let start, end = new Date().toISOString();
+  const fetchData = async () => {
+    let start,
+      end = new Date().toISOString();
 
     if (toggleFilterValue === "day") {
       let today = new Date();
       var dayOfWeek = today.getUTCDay();
       var diff = today.getUTCDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 0);
-      var lastSunday = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), diff - 1)).toISOString();
+      var lastSunday = new Date(
+        Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), diff - 1)
+      ).toISOString();
 
       start = `${lastSunday.substring(0, 10)}T18:30:00.000Z`;
     }
 
-    if (toggleFilterValue === 'week') {
+    if (toggleFilterValue === "week") {
       let today = new Date();
       let firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
       start = firstDayOfMonth.toISOString().substring(0, 10) + "T18:30:00.000Z";
@@ -134,280 +150,402 @@ const Street_Light__Status_Widget: React.FunctionComponent<IWidgetProps> = (prop
       var today = new Date();
       start = new Date(today.getFullYear(), 0, 1).toISOString();
     }
-  
-      try {
-          const res = await props.uxpContext.executeAction("TataStreetLightAPI", "GetExpenditure", { hierarchy, start: start, end: end, filter }, { json: true });
-          console.log("Response From  Expenditure API is", res, typeof res);
-          setEnergyConsumptionData(res);
-      } catch (e) {
-          console.error("Error fetching data:", e);
-      }
+
+    try {
+      const res = await props.uxpContext.executeAction(
+        "TataStreetLightAPI",
+        "GetExpenditure",
+        { hierarchy, start: start, end: end, filter },
+        { json: true }
+      );
+      console.log("Response From  Expenditure API is", res, typeof res);
+      setEnergyConsumptionData(res);
+    } catch (e) {
+      console.error("Error fetching data:", e);
+    }
   };
 
-React.useEffect(() => {
-  fetchData();
-}, [filter]); 
-  
-    
- const transformData = (rawData: EnergyConsumptionData, filterType: "day" | "week" | "month") => {
-  let filteredData: { name: string; powerConsumption: number }[] = [];
+  React.useEffect(() => {
+    fetchData();
+  }, [filter]);
 
+  const transformData = (
+    rawData: EnergyConsumptionData,
+    filterType: "day" | "week" | "month"
+  ) => {
+    let filteredData: { name: string; powerConsumption: number }[] = [];
 
-  const expenditureData: (any[] | { [key: string]: { [key: string]: number; }[]; }) = rawData["Expenditure"] || [];
- 
-if (filterType === "day") {   
-  const daysInWeekFull: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const daysInWeekAbbr: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']; 
+    const expenditureData:
+      | any[]
+      | { [key: string]: { [key: string]: number }[] } =
+      rawData["Expenditure"] || [];
 
+    if (filterType === "day") {
+      const daysInWeekFull: string[] = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const daysInWeekAbbr: string[] = [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+      ];
 
-  filteredData = daysInWeekAbbr.map((abbr, index) => {
-      const fullDayName = daysInWeekFull[index]; 
+      filteredData = daysInWeekAbbr.map((abbr, index) => {
+        const fullDayName = daysInWeekFull[index];
 
-      const currentDate = new Date();  
-      currentDate.setDate(currentDate.getDate() + index - 1);    
-      const day = currentDate.getDate();
-      const month = currentDate.toLocaleString('default', { month: 'short' });
-      // const year = currentDate.getFullYear(); 
-      const year = currentDate.toLocaleString('default', { year: '2-digit' });  
-      const dateString = `${day}/${month}/${year}`; 
+        const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + index - 1);
+        const day = currentDate.getDate();
+        const month = currentDate.toLocaleString("default", { month: "short" });
+        // const year = currentDate.getFullYear();
+        const year = currentDate.toLocaleString("default", { year: "2-digit" });
+        const dateString = `${day}/${month}/${year}`;
 
-      const powerEntry = (expenditureData as any[]).find((entry: { day: string; }) => entry.day === fullDayName);  
-      const fullDateString = currentDate.toLocaleDateString();  
+        const powerEntry = (expenditureData as any[]).find(
+          (entry: { day: string }) => entry.day === fullDayName
+        );
 
-      return {
-           name: abbr, 
-          fullDate: fullDateString, 
-          powerConsumption: powerEntry ? powerEntry.value : 0, 
-      };
-  });  
-    
-  }
+        // Calculate the sum
+        const val: any = (expenditureData as any[]).reduce(
+          (acc, obj) => acc + obj.value,
+          0
+        );
 
-  else if (filterType === "week") {   
-      const WeekNamesFull: string[] = ["Week1", "Week2", "Week3", "Week4"];  
-            
-      filteredData = WeekNamesFull.map(weekName => {  
-          const powerEntry = (expenditureData as any[]).find((entry: { week: string; }) => entry.week === weekName); 
-          const powerValue = powerEntry ? powerEntry.value : 0; 
+        // Calculate the average
+        const averageVal = val / 1000 / (expenditureData as any[]).length;
 
-          return {
-              name: weekName,
-              powerConsumption: powerValue, 
-          };
-      }); 
-  } 
+        const fullDateString = currentDate.toLocaleDateString();
 
-  else if (filterType === "month") {   
+        return {
+          name: abbr,
+          fullDate: fullDateString,
+          powerConsumption: powerEntry ? powerEntry.value : 0,
+          averageValue: averageVal,
+        };
+      });
+    } else if (filterType === "week") {
+      const WeekNamesFull: string[] = ["Week1", "Week2", "Week3", "Week4"];
 
-      const startDate = new Date('2024-02-01T00:00:00').toISOString(); 
-      const monthNamesFull: string[] = [ "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
-      const monthNamesabbr: string[] = [ "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      filteredData = WeekNamesFull.map((weekName) => {
+        const powerEntry = (expenditureData as any[]).find(
+          (entry: { week: string }) => entry.week === weekName
+        );
+        const powerValue = powerEntry ? powerEntry.value : 0;
 
-          filteredData = monthNamesabbr.map((abbr, index) => {
-          const fullMonthName = monthNamesFull[index];
+        // Calculate the sum
+        const val: any = (expenditureData as any[]).reduce(
+          (acc, obj) => acc + obj.value,
+          0
+        );
 
-          const powerEntry = (expenditureData as any[]).find((entry: { month: string; }) => entry.month === fullMonthName);
-           
-          const powerValue = powerEntry ? powerEntry.value : 0; 
+        // Calculate the average
+        const averageVal = val / 1000 / (expenditureData as any[]).length;
 
-          return {
-              name: abbr,
-              powerConsumption: powerValue 
-          };
-      }); 
-  }  
-  return filteredData;
-}; 
+        return {
+          name: weekName,
+          powerConsumption: powerValue,
+          averageValue: averageVal,
+        };
+      });
+    } else if (filterType === "month") {
+      const startDate = new Date("2024-02-01T00:00:00").toISOString();
+      const monthNamesFull: string[] = [
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      const monthNamesabbr: string[] = [
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
 
-   
-  const transformedData1 = transformData(energyConsumptionData, 'month');
-  const transformedData2 = transformData(energyConsumptionData, 'week'); 
-  const transformedData3 = transformData(energyConsumptionData, 'day');
-  
+      filteredData = monthNamesabbr.map((abbr, index) => {
+        const fullMonthName = monthNamesFull[index];
+
+        const powerEntry = (expenditureData as any[]).find(
+          (entry: { month: string }) => entry.month === fullMonthName
+        );
+
+        const powerValue = powerEntry ? powerEntry.value : 0;
+
+        // Calculate the sum
+        const val: any = (expenditureData as any[]).reduce(
+          (acc, obj) => acc + obj.value,
+          0
+        );
+
+        // Calculate the average
+        const averageVal = val / 1000 / (expenditureData as any[]).length;
+
+        return {
+          name: abbr,
+          powerConsumption: powerValue,
+          averageValue: averageVal,
+        };
+      });
+    }
+    return filteredData;
+  };
+
+  const transformedData1 = transformData(energyConsumptionData, "month");
+  const transformedData2 = transformData(energyConsumptionData, "week");
+  const transformedData3 = transformData(energyConsumptionData, "day");
+
   const filterToDataMap: { [key: string]: any[] } = {
     month: transformedData1,
-    week: transformedData2,  
+    week: transformedData2,
     day: transformedData3,
   };
-  
-  const selectedData = filterToDataMap[toggleFilterValue] || transformedData1; 
- 
+
+  const selectedData = filterToDataMap[toggleFilterValue] || transformedData1;
+
   const transformedChartData = selectedData.map((item) => ({
     ...item,
-    powerConsumption: item.powerConsumption / 1000,  
+    powerConsumption: item.powerConsumption / 1000,
   }));
 
+  const colorArray = ["#005745"];
 
-  const colorArray = ['#005745'];
+  return (
+    <WidgetWrapper className="smart-city_box waste-bin-box">
+      <TitleBar
+        title="Street Light Alerts"
+        icon="https://static.iviva.com/images/Udhayimages/streetlight-alert.png"
+      ></TitleBar>
 
-
-    return ( 
-         <WidgetWrapper className="smart-city_box waste-bin-box lft-widget-box">   
-            <TitleBar title="Street Light Alerts" icon='https://static.iviva.com/images/Udhayimages/streetlight-alert.png'></TitleBar>
-           
-            <div className="smart-city-content">  
-                  {loading ? (  
-                  <div>Loading...</div>
-                ) : (
-                  <div className='status-content'>  
-                      <div className='status Attention'>
-                              <h3>{health?.ilmAlerts?.["Main Fail"] + health?.ilmAlerts?.["Lamp Flickering"]} <span></span></h3> 
-                          <p>High</p>
-                      </div>
-
-                      <div className='status Pending'>
-                      <h3>{health?.ilmAlerts?.["Load Fail"] + health?.ilmAlerts?.["Lux Sensor Blocked"] + health?.ilmAlerts?.["Partial Failure"]} <span></span></h3>
-                          <p>Medium</p>
-                      </div>
-
-                      <div className='status Resloved'>
-                      <h3>{health?.ilmAlerts?.["Power Factor"] + health?.ilmAlerts?.["AC Voltage"]} <span></span></h3>  
-                          <p>Low</p>
-                      </div>    
-                  </div>
-                )}  
-
-                <div className="technician_chart">  
-                
-                <div className='sub_title_bar'>Installed vs Working lamps</div>   
-
-                    <div className="progress-bar-container">   
-                        <>   
-                          <div className="progress-bar installedLamps" style={{ width: `${Number(calculatePercentage(Number(lampdata?.ilm?.installedLamps ?? 75), Number(lampdata?.ilm?.installedLamps ?? 75) + Number(lampdata?.ilm?.workingLamps ?? 25))) < 10 ? 10 : Math.max(10, Number(calculatePercentage(Number(lampdata?.ilm?.installedLamps ?? 75), Number(lampdata?.ilm?.installedLamps ?? 75) + Number(lampdata?.ilm?.workingLamps ?? 25))))}%` }}></div>
- 
-                          <div className='progress-bar working-lamps' style={{ width: `${Number(calculatePercentage(Number(lampdata?.ilm?.workingLamps ?? 25), Number(lampdata?.ilm?.installedLamps ?? 75) + Number(lampdata?.ilm?.workingLamps ?? 25))) < 10 ? 10 : Number(calculatePercentage(Number(lampdata?.ilm?.workingLamps ?? 25), Number(lampdata?.ilm?.installedLamps ?? 75) + Number(lampdata?.ilm?.workingLamps ?? 25)))}%` }}></div> 
-
-                        </>    
-                    </div> 
-   
-                    <div className='chart-sec'>   
-
-                        <div className='chart-issue'>       
-                            <h3>{lampdata?.ilm?.installedLamps ?? "N/A"}</h3>
-                            <p>Installed lamps</p>
-                        </div> 
-
-                        <div className='chart-pending'>       
-                            <h3>{lampdata?.ilm?.workingLamps ?? "N/A"}</h3>
-                            <p>Working lamps</p>
-                        </div>    
-                        
-                    </div> 
-                </div>     
-
-                <div className="smart-city-content" style={{height:'400px', width:"100%"}}>  
-                       
-                       
-                        
-                <WidgetWrapper className="smart-city_box energy_consumption-box  expenditure-box">
-                  <TitleBar  icon='https://static.iviva.com/images/Udhayimages/expenditure.png' title="Energy Consumption Expenditure"> </TitleBar>
-                  <div className="smart-city-content">
-                    <div className="technician_chart">
-                      <div className='chart-top'> 
-                        <ToggleFilter
-                          options={[
-                            { label: "7D", value: "day" },
-                            { label: "1M", value: "week" },
-                            { label: "1Y", value: "month" },
-                          ]}
-                          value={toggleFilterValue}
-                          onChange={handleFilterChange}
-                        /> 
-                      </div>
-
-                      <div className='chart-top' style={{marginTop:"0.5em"}}>
-                        <div className="sub_title_bar">SAR  &#40; &#10005; 1000 &#41;</div>  
-                      </div>
-                      
-                       <ResponsiveContainer> 
-
-                          <BarChart
-                            data={transformedChartData}  
-                            margin={{
-                                top: 10,
-                                right: 0,
-                                left: 0,
-                                bottom: 30,
-                            }}
-                        > 
-                            <CartesianGrid stroke="#1a6f60cf" strokeDasharray="1 1" />
-                            <XAxis dataKey="name" />    
-                            <YAxis />
-                            
-                            <Tooltip formatter={(value: any) => `${value}`} />
-                            <Legend />  
-
-
-                          {colorArray.map((color, index) => (
-                            <Bar  barSize={20}
-                            dataKey="powerConsumption"
-                            name="Expenditure"
-                            fill={`url(#color${index})`}
-                          />
-                        ))}
-                          <defs>
-                          {colorArray.map((color, index) => (
-                              <linearGradient key={`gradient-${index}`} id={`color${index}`} x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="15%" stopColor={'#009b79'} />
-                              <stop offset="85%" stopColor={'#005745'} stopOpacity={0.9} />
-                              </linearGradient>
-                          ))}
-                        </defs>
-
-                        </BarChart>
-
-                      </ResponsiveContainer>  
-
-
-{/* 
-     <ResponsiveContainer width="100%" height="100%">
-           <BarChart
-             width={700}
-              height={400}
-              data={transformedChartData}
-              margin={{ top: 10, right: 10, left: 10, bottom: 5 }}
-            >
-              <CartesianGrid stroke="#1a6f60cf" strokeDasharray="1 1" />
-
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip /> 
-              {colorArray.map((color, index) => (
-                <Bar  barSize={20}
-                  key={`bar-${index}`}
-                  dataKey="value"
-                 fill={`url(#color${index})`}
-               />
-             ))}
-              <defs>
-               {colorArray.map((color, index) => (
-                  <linearGradient key={`gradient-${index}`} id={`color${index}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="15%" stopColor={'#009b79'} />
-                   <stop offset="85%" stopColor={'#005745'} stopOpacity={0.9} />
-                  </linearGradient>
-               ))}
-            </defs>
-          </BarChart>
-        </ResponsiveContainer>  */}
-
-
-
-                    </div>
-                  </div>
-                </WidgetWrapper>
-
-
- 
-                </div>
+      <div className="smart-city-content">
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <div className="status-content">
+            <div className="status Attention">
+              <h3>
+                {health?.ilmAlerts?.["Main Fail"] +
+                  health?.ilmAlerts?.["Lamp Flickering"]}{" "}
+                <span></span>
+              </h3>
+              <p>High</p>
             </div>
 
-        </WidgetWrapper> 
-    )
-};  
+            <div className="status Pending">
+              <h3>
+                {health?.ilmAlerts?.["Load Fail"] +
+                  health?.ilmAlerts?.["Lux Sensor Blocked"] +
+                  health?.ilmAlerts?.["Partial Failure"]}{" "}
+                <span></span>
+              </h3>
+              <p>Medium</p>
+            </div>
+
+            <div className="status Resloved">
+              <h3>
+                {health?.ilmAlerts?.["Power Factor"] +
+                  health?.ilmAlerts?.["AC Voltage"]}{" "}
+                <span></span>
+              </h3>
+              <p>Low</p>
+            </div>
+          </div>
+        )}
+
+        <div className="technician_chart">
+          <div className="sub_title_bar">Installed vs Working lamps</div>
+
+          <div className="progress-bar-container">
+            <>
+              <div
+                className="progress-bar installedLamps"
+                style={{
+                  width: `${
+                    Number(
+                      calculatePercentage(
+                        Number(lampdata?.ilm?.installedLamps ?? 75),
+                        Number(lampdata?.ilm?.installedLamps ?? 75) +
+                          Number(lampdata?.ilm?.workingLamps ?? 25)
+                      )
+                    ) < 10
+                      ? 10
+                      : Math.max(
+                          10,
+                          Number(
+                            calculatePercentage(
+                              Number(lampdata?.ilm?.installedLamps ?? 75),
+                              Number(lampdata?.ilm?.installedLamps ?? 75) +
+                                Number(lampdata?.ilm?.workingLamps ?? 25)
+                            )
+                          )
+                        )
+                  }%`,
+                }}
+              ></div>
+
+              <div
+                className="progress-bar working-lamps"
+                style={{
+                  width: `${
+                    Number(
+                      calculatePercentage(
+                        Number(lampdata?.ilm?.workingLamps ?? 25),
+                        Number(lampdata?.ilm?.installedLamps ?? 75) +
+                          Number(lampdata?.ilm?.workingLamps ?? 25)
+                      )
+                    ) < 10
+                      ? 10
+                      : Number(
+                          calculatePercentage(
+                            Number(lampdata?.ilm?.workingLamps ?? 25),
+                            Number(lampdata?.ilm?.installedLamps ?? 75) +
+                              Number(lampdata?.ilm?.workingLamps ?? 25)
+                          )
+                        )
+                  }%`,
+                }}
+              ></div>
+            </>
+          </div>
+
+          <div className="chart-sec">
+            <div className="chart-issue">
+              <h3>{lampdata?.ilm?.installedLamps ?? "N/A"}</h3>
+              <p>Installed lamps</p>
+            </div>
+
+            <div className="chart-pending">
+              <h3>{lampdata?.ilm?.workingLamps ?? "N/A"}</h3>
+              <p>Working lamps</p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="smart-city-content"
+          style={{ height: "400px", width: "100%" }}
+        >
+          <WidgetWrapper className="smart-city_box energy_consumption-box  expenditure-box">
+            <TitleBar
+              icon="https://static.iviva.com/images/Udhayimages/expenditure.png"
+              title="Energy Consumption Expenditure"
+            >
+              {" "}
+            </TitleBar>
+            <div className="smart-city-content">
+              <div className="technician_chart">
+                <div className="chart-top">
+                  <ToggleFilter
+                    options={[
+                      { label: "7D", value: "day" },
+                      { label: "1M", value: "week" },
+                      { label: "1Y", value: "month" },
+                    ]}
+                    value={toggleFilterValue}
+                    onChange={handleFilterChange}
+                  />
+                </div>
+
+                <div className="chart-top" style={{ marginTop: "0.5em" }}>
+                <div className="sub_title_bar">SAR  &#40; &#10005; 1000 &#41;</div>  
+                </div>
+
+                <ResponsiveContainer>
+                  <ComposedChart
+                    data={transformedChartData}
+                    margin={{
+                      top: 10,
+                      right: 0,
+                      left: 0,
+                      bottom: 30,
+                    }}
+                  >
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <CartesianGrid stroke="#1a6f60cf" strokeDasharray="1 1" />
+
+                    <Tooltip formatter={(value: any) => `${value}`} />
+                    <Legend />
+
+                    {colorArray.map((color, index) => (
+                      <Bar
+                        key={`bar-${index}`}
+                        barSize={20}
+                        dataKey="powerConsumption"
+                        name="Expenditure"
+                        fill={`url(#color${index})`}
+                      />
+                    ))} 
+                    
+                    <Line
+                      name="Average"
+                      type="monotone"
+                      dataKey="averageValue"
+                      stroke="#62c607"
+                      strokeWidth={2}
+                      strokeDasharray="3 3" 
+                    /> 
+                    <defs>
+                      {colorArray.map((color, index) => (
+                        <linearGradient
+                          key={`gradient-${index}`}
+                          id={`color${index}`}
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop offset="15%" stopColor={"#009b79"} />
+                          <stop
+                            offset="85%"
+                            stopColor={"#005745"}
+                            stopOpacity={0.9}
+                          />
+                        </linearGradient>
+                      ))}
+                    </defs>
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </WidgetWrapper>
+          {transformedChartData[0].averageValue ? (
+            <div className="averagevalue-container">
+              Average value:{" "}
+              {Math.round(
+                transformedChartData[0].averageValue * 1000
+              ).toLocaleString("en-US")} SAR
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
+    </WidgetWrapper>
+  );
+};
 
 export default Street_Light__Status_Widget;
-
-
-
- 
- 

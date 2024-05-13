@@ -146,8 +146,7 @@ const MaintenanceWorkOrderSummary: React.FunctionComponent<{}> = () => {
                   />
             </div>
     
-            </WidgetWrapper>  
-    
+            </WidgetWrapper>   
         )
     }; 
   

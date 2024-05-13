@@ -3,12 +3,7 @@ import { AreaChart, Area, ResponsiveContainer,  LineChart, Line, BarChart, Bar, 
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,LabelList  } from 'recharts';
 
 import { DataList, WidgetWrapper, DynamicSelect, SearchBox, DataTable, MapComponent, TitleBar, ItemListCard, FilterPanel, DataGrid, ItemCard, FormField, Label, Select, Input, DateRangePicker, DatePicker, Checkbox, ProfileImage, Popover, TrendChartComponent, ToggleFilter } from "uxp/components";
- 
-
-
-// interface IWidgetProps { 
-//     percentage:number;
-// } 
+  
 
 const IAQ_Widget: React.FunctionComponent<{}> = () => {  
 

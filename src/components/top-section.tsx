@@ -45,16 +45,28 @@ const TopNavTabs: React.FunctionComponent<INavmode> = (props) => {
       <div className="top-nav-tabs">
         <ul id="navList">
           {Object.values(tabs).map((tab) => (
+            // <li
+            //   key={tab.id}
+            //   onClick={() => handleTabClick(tab.label)}
+            //   className={`nav-link ${tab.className} ${tab.label === activeTab ? 'active' : ''}`}
+            // >
+            //   <a href="javascript:void(0);">
+            //     <span></span>
+            //     <label>{tab.label}</label>
+            //   </a>
+            // </li> 
+
             <li
               key={tab.id}
               onClick={() => handleTabClick(tab.label)}
-              className={`nav-link ${tab.className} ${tab.label === activeTab ? 'active' : ''}`}
+              className={`nav-link ${tab.className} ${tab.label.toLowerCase() === activeTab.toLowerCase() ? 'active' : ''}`}
             >
               <a href="javascript:void(0);">
                 <span></span>
                 <label>{tab.label}</label>
               </a>
-            </li>
+            </li>  
+
           ))}
         </ul>
       </div>

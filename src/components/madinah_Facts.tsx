@@ -9,11 +9,7 @@ interface IWidgetProps {
 } 
  
 
-const Madinah_Facts: React.FunctionComponent<IWidgetProps> = (props:any) => { 
-  
-
-
-
+const Madinah_Facts: React.FunctionComponent<IWidgetProps> = (props:any) => {  
 
     return (   
 
@@ -30,8 +26,7 @@ const Madinah_Facts: React.FunctionComponent<IWidgetProps> = (props:any) => {
                         <li><span>176</span><label>Number of health centers in the Medina region</label> </li>
                         <li><span>1,382</span><label>Archeological sites of the city</label></li>
                         <li><span>47</span><label>Number of mosques in the historic city</label></li>
-                    </ul> 
-                    
+                    </ul>  
                     
                 </div>
 
