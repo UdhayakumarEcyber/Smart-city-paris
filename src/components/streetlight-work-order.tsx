@@ -87,21 +87,33 @@ const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = ({
   const streetLightData = [
     {
       id: "1",
-      name: "High",
+      name: "New",
       name1: "Attention",
-      value: workOrders.filter((order) => order.PriorityID === "Urgent").length,
+      // value: workOrders.filter((order) => order.PriorityID === "Urgent").length,
+      value: workOrders.filter((order) => order.Stage === "New").length 
     },
     {
       id: "2",
-      name: "Medium",
-      name1: "Pending",
-      value: workOrders.filter((order) => order.PriorityID === "Medium").length,
+      name: "Acknowledgement",
+      name1: "acknowledgement",
+      // value: workOrders.filter((order) => order.PriorityID === "Medium").length,
+      value: workOrders.filter((order) => order.PriorityID === "Acknowledgement").length
+      
     },
     {
       id: "3",
-      name: "Low",
+      name: "InProgress",
+      name1: "Pending",
+      // value: workOrders.filter((order) => order.PriorityID === "Medium").length,
+      value: workOrders.filter((order) => order.PriorityID === "InProgress").length
+      
+    },
+    {
+      id: "4",
+      name: "Completed",
       name1: "Resloved",
-      value: workOrders.filter((order) => order.PriorityID === "Low").length,
+      // value: workOrders.filter((order) => order.PriorityID === "Low").length,
+      value: workOrders.filter((order) => order.PriorityID === "Completed").length
     },
   ];
 
@@ -189,7 +201,7 @@ const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = ({
         icon="https://static.iviva.com/images/Udhayimages/work-list.png"
       ></TitleBar>
 
-      <div className="smart-city_box waste-bin-box ">
+      <div className="smart-city_box waste-bin-box work-order-box">
         <div className="smart-city-content" style={{ height: "80px" }}>
           <div className="status-content">
             {streetLightData.map((item) => (
@@ -260,7 +272,7 @@ const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = ({
             <thead>
               <tr>
                 <th style={{ width: "28%" }}>CWO ID</th>
-                <th style={{ width: "15%" }}>Site Location</th>
+                <th style={{ width: "15%" }}>Location</th>
                 <th style={{ width: "30%" }}>Created Date</th>
                 <th style={{ width: "20%" }}>Problem Type</th>
                 <th style={{ width: "10%" }}></th>

@@ -275,6 +275,7 @@ const Comapre_IAQ: React.FunctionComponent<{}> = () => {
                                         value={inputValue}
                                         onChange={(newValue) => { setInputValue(newValue) }} 
                                         placeholder='Location'
+                                        className="iaq-searchbox"
                                     />
                                 </FormField>  
                         
@@ -291,6 +292,7 @@ const Comapre_IAQ: React.FunctionComponent<{}> = () => {
                                         value={inputValue1}
                                         onChange={(newValue) => { setInputValue1(newValue) }}
                                         placeholder='Location' 
+                                        className="iaq-searchbox"
                                     />
                                 </FormField>  
 

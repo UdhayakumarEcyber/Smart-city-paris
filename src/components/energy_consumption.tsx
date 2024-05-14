@@ -298,8 +298,8 @@ const EnergyConsumption: React.FunctionComponent<IWidgetProps> = (props) => {
                   <stop offset="90%" stopColor="#013335" stopOpacity={0.9} />
                 </linearGradient>
                 <linearGradient id="gradient2" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="10%" stopColor="#00947b" stopOpacity={0.8} />
-                  <stop offset="90%" stopColor="#053122" stopOpacity={0.9} />
+                  <stop offset="10%" stopColor="#009b79"  />
+                  <stop offset="90%" stopColor="#065846"  />
                 </linearGradient>
               </defs>
             </AreaChart>

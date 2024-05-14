@@ -33,6 +33,7 @@ const TopNavTabs: React.FunctionComponent<INavmode> = (props) => {
     Water: { label: 'Water', className: 'water', id: 'water' },
     Pollution: { label: 'Pollution', className: 'pollution', id: 'pollution' },
     Fire: { label: 'Fire', className: 'fire', id: 'fire' },
+    POI: { label: 'POI', className: 'poi', id: 'poi' },
   };
 
   const handleTabClick = (label: string) => {

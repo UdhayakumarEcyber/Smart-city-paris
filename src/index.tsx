@@ -69,6 +69,8 @@ import IOT_Filter from './components/iot_filter'
 import Pole_Details from './components/pole_details' 
 import Madinah_Facts from './components/madinah_Facts' 
 import Refresh_Btn from './components/refresh'
+import SgGridDensity from './components/sg_grid_density'
+
 
 
 
@@ -99,7 +101,9 @@ export enum EventsEnum {
   DistrictJump = 'district-jump',
   ChangeAppMode = 'change-app-mode',
   SummaryGroupFilter = 'summary-group-filter', 
-  UpdateIOTAssetData = 'update-iot-asset-data', 
+  UpdateIOTAssetData = 'update-iot-asset-data',  
+  SetSGGridDensity = 'set-sg-grid-density',
+
 }
 
 // export interface IPayload {
@@ -508,6 +512,23 @@ registerWidget({
         }
     }
 });
+
+registerWidget({
+    id: "sgGridDensity", 
+    widget: SgGridDensity,
+    configs: {
+        layout: {
+            w: 3,
+            h: 8,
+            // minH: 7,
+            // minW: 2,
+            //  maxH: 7,
+            //  maxW: 2
+        }
+    }
+});
+
+
 
 registerWidget({
     id: "heightMap", 

@@ -470,7 +470,7 @@ const Street_Light__Status_Widget: React.FunctionComponent<IWidgetProps> = (
                 </div>
 
                 <div className="chart-top" style={{ marginTop: "0.5em" }}>
-                <div className="sub_title_bar">SAR  &#40; &#10005; 1000 &#41;</div>  
+                <div className="sub_title_bar">SAR  x 1000 &#41;</div>  
                 </div>
 
                 <ResponsiveContainer>
