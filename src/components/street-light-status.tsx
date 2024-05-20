@@ -109,7 +109,6 @@ const Street_Light__Status_Widget: React.FunctionComponent<IWidgetProps> = (
 
   const startDate = currentDate.toISOString();
   const endDate = new Date().toISOString();
- 
 
   const handleFilterChange = (value: "day" | "week" | "month") => {
     console.log("Selected Filter Value:", value);
@@ -470,7 +469,7 @@ const Street_Light__Status_Widget: React.FunctionComponent<IWidgetProps> = (
                 </div>
 
                 <div className="chart-top" style={{ marginTop: "0.5em" }}>
-                <div className="sub_title_bar">SAR  x 1000 &#41;</div>  
+                  <div className="sub_title_bar">SAR x 1000 &#41;</div>
                 </div>
 
                 <ResponsiveContainer>
@@ -498,16 +497,16 @@ const Street_Light__Status_Widget: React.FunctionComponent<IWidgetProps> = (
                         name="Expenditure"
                         fill={`url(#color${index})`}
                       />
-                    ))} 
-                    
+                    ))}
+
                     <Line
                       name="Average"
                       type="monotone"
                       dataKey="averageValue"
                       stroke="#62c607"
                       strokeWidth={2}
-                      strokeDasharray="3 3" 
-                    /> 
+                      strokeDasharray="3 3"
+                    />
                     <defs>
                       {colorArray.map((color, index) => (
                         <linearGradient
@@ -537,7 +536,8 @@ const Street_Light__Status_Widget: React.FunctionComponent<IWidgetProps> = (
               Average value:{" "}
               {Math.round(
                 transformedChartData[0].averageValue * 1000
-              ).toLocaleString("en-US")} SAR
+              ).toLocaleString("en-US")}{" "}
+              SAR
             </div>
           ) : (
             <></>
