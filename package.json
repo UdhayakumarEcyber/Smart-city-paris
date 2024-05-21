@@ -1,134 +1,67 @@
 {
-
-  "scripts": {
-
-    "build:prod": "webpack --config webpack.config.js --mode production --progress",
-
-    "build": "webpack --config webpack.config.js",
-
-    "watch": "webpack --watch --config webpack.config.js",
-
-    "dev": "webpack serve"
-
-  },
-
-  "dependencies": {
-
-    "@fortawesome/fontawesome-svg-core": "^6.5.1",
-
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
-
-    "@fortawesome/react-fontawesome": "^0.2.0",  
-
-    "@nivo/pie": "^0.83.0",
-
-    "@nivo/radar": "^0.84.0",
-
-    "@smplrspace/smplr-loader": "^2.14.0",
-
-    "axios": "^1.6.7",
-
-    "cesium": "^1.109.0",
-
-    "chart.js": "^4.3.3",
-
-    "cors": "^2.8.5",
-
-    "express": "^4.18.3",
-
-    "highcharts": "^11.1.0",
-
-    "highcharts-react-official": "^3.2.0",
-
-    "mapbox-gl": "^2.15.0",
-
-    "mobiscroll-react": "^4.0.0",
-
-    "node-fetch": "^3.3.2",
-
-    "procedural-gl": "^1.0.19",
-
-    "procedural-gl-react": "^1.0.10",
-
-    "rc-progress": "^3.4.2",
-
-    "react": "^16.14.0",
-
-    "react-chartjs-2": "^5.2.0",
-
-    "react-dom": "^16.14.0",
-
-    "react-dropzone": "^14.2.3",
-
-    "react-highcharts": "^6.0.0",
-
-    "react-progressbar-semicircle": "^1.2.1",
-
-    "react-router-dom": "^6.22.0",
-
-    "react-scripts": "^5.0.1",
-
-    "react-select": "^5.8.0",
-
-    "react-slider": "^2.0.6",
-
-    "react-tabs": "^6.0.2",
-
-    "react-virtualized": "^9.22.5",
-
-    "recharts": "^2.8.0",
-
-    "remove-node-modules": "^1.7.6",
-
-    "utils": "^0.2.2"
-
-  },
-
-  "devDependencies": {
-
-    "@types/cors": "^2.8.17",
-
-    "@types/mapbox-gl": "^2.7.13",
-
-    "@types/react": "^16.14.60",
-
-    "@types/react-dom": "^16.9.8",
-
-    "@types/react-slider": "^1.3.6",
-
-    "@types/react-virtualized": "^9.21.29",
-
-    "@types/recharts": "^1.8.24",
-
-    "css-loader": "^6.10.0",
-
-    "sass": "^1.38.2",
-
-    "sass-loader": "^8.0.2",
-
-    "source-map-loader": "^0.2.4",
-
-    "style-loader": "^1.1.3",
-
-    "svg-url-loader": "^6.0.0",
-
-    "ts-loader": "^9.4.2",
-
-    "typescript": "^4.9.5",
-
-    "webpack": "^5.37.0",
-
-    "webpack-cli": "^4.7.0",
-
-    "webpack-dev-server": "^4.7.4"
-
-  },
-
-  "resolutions": {
-
-    "react-error-overlay": "6.0.9"
-
-  }
-
+    "scripts": {
+        "build:prod": "webpack --config webpack.config.js --mode production --progress",
+        "build": "webpack --config webpack.config.js",
+        "watch": "webpack --watch --config webpack.config.js",
+        "dev": "webpack serve"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.5.1",
+        "@fortawesome/free-solid-svg-icons": "^6.5.1",
+        "@fortawesome/react-fontawesome": "^0.2.0",
+        "@nivo/pie": "^0.83.0",
+        "@nivo/radar": "^0.84.0",
+        "@smplrspace/smplr-loader": "^2.14.0",
+        "axios": "^1.6.7",
+        "cesium": "^1.109.0",
+        "chart.js": "^4.3.3",
+        "cors": "^2.8.5",
+        "express": "^4.18.3",
+        "highcharts": "^11.1.0",
+        "highcharts-react-official": "^3.2.0",
+        "mapbox-gl": "^2.15.0",
+        "mobiscroll-react": "^4.0.0",
+        "node-fetch": "^3.3.2",
+        "procedural-gl": "^1.0.19",
+        "procedural-gl-react": "^1.0.10",
+        "rc-progress": "^3.4.2",
+        "react": "^16.14.0",
+        "react-chartjs-2": "^5.2.0",
+        "react-dom": "^16.14.0",
+        "react-dropzone": "^14.2.3",
+        "react-highcharts": "^6.0.0",
+        "react-progressbar-semicircle": "^1.2.1",
+        "react-router-dom": "^6.22.0",
+        "react-scripts": "^5.0.1",
+        "react-select": "^5.8.0",
+        "react-slider": "^2.0.6",
+        "react-tabs": "^6.0.2",
+        "react-virtualized": "^9.22.5",
+        "recharts": "^2.8.0",
+        "remove-node-modules": "^1.7.6",
+        "utils": "^0.2.2"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.17",
+        "@types/mapbox-gl": "^2.7.13",
+        "@types/react": "^16.14.60",
+        "@types/react-dom": "^16.9.8",
+        "@types/react-slider": "^1.3.6",
+        "@types/react-virtualized": "^9.21.29",
+        "@types/recharts": "^1.8.24",
+        "css-loader": "^6.10.0",
+        "sass": "^1.38.2",
+        "sass-loader": "^8.0.2",
+        "source-map-loader": "^0.2.4",
+        "style-loader": "^1.1.3",
+        "svg-url-loader": "^6.0.0",
+        "ts-loader": "^9.4.2",
+        "typescript": "^4.9.5",
+        "webpack": "^5.37.0",
+        "webpack-cli": "^4.7.0",
+        "webpack-dev-server": "^4.7.4"
+    },
+    "resolutions": {
+        "react-error-overlay": "6.0.9"
+    }
 }
-

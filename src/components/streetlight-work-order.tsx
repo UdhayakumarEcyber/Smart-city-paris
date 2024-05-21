@@ -90,34 +90,56 @@ const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = ({
       name: "New",
       name1: "Attention",
       // value: workOrders.filter((order) => order.PriorityID === "Urgent").length,
-      value: workOrders.filter((order) => order.Stage === "New").length 
+      value: workOrders.filter((order) => order.Stage === "New").length,
     },
     {
       id: "2",
-      name: "Acknowledgement",
+      name: "Acknowledge",
       name1: "acknowledgement",
       // value: workOrders.filter((order) => order.PriorityID === "Medium").length,
-      value: workOrders.filter((order) => order.PriorityID === "Acknowledgement").length
-      
+      value: workOrders.filter(
+        (order) => order.PriorityID === "Acknowledgement"
+      ).length,
     },
     {
       id: "3",
       name: "InProgress",
       name1: "Pending",
       // value: workOrders.filter((order) => order.PriorityID === "Medium").length,
-      value: workOrders.filter((order) => order.PriorityID === "InProgress").length
-      
+      value: workOrders.filter((order) => order.PriorityID === "InProgress")
+        .length,
     },
     {
       id: "4",
       name: "Completed",
       name1: "Resloved",
       // value: workOrders.filter((order) => order.PriorityID === "Low").length,
-      value: workOrders.filter((order) => order.PriorityID === "Completed").length
+      value: workOrders.filter((order) => order.PriorityID === "Completed")
+        .length,
     },
   ];
 
   const [poleData, setPoleData] = useState(null);
+
+  const getDataItems = (max: number, pageToken: string) => {
+    let last = 0;
+    if (pageToken !== null) last = parseInt(pageToken);
+
+    let p = new Promise<{ items: Array<any>; pageToken: string }>(
+      (resolve, reject) => {
+        let data = workOrders.filter(
+          (item: any, key: number) => key > last && key <= last + max
+        );
+        let response = {
+          items: data,
+          pageToken: (last + data.length).toString(),
+        };
+        resolve(response);
+      }
+    );
+
+    return p;
+  };
 
   // React.useEffect(() => {
   //   workOrders.forEach((workOrder) => {
@@ -268,57 +290,67 @@ const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = ({
         </div>
 
         <div className="work_order-content">
-          <table>
-            <thead>
-              <tr>
-                <th style={{ width: "28%" }}>CWO ID</th>
-                <th style={{ width: "15%" }}>Location</th>
-                <th style={{ width: "30%" }}>Created Date</th>
-                <th style={{ width: "20%" }}>Problem Type</th>
-                <th style={{ width: "10%" }}></th>
-              </tr>
-            </thead>
-            <tbody>
-              {workOrders.map((workOrder, index) => (
-                <tr key={index}>
-                  <td style={{ width: "28%" }}>
-                    <a onClick={() => handleResultClick(workOrder)}>
-                      {workOrder?.CWOID}
-                    </a>
-                  </td>
-                  <td style={{ width: "15%" }}>
-                    <a onClick={() => handleResultClick(workOrder)}>
-                      {workOrder?.SiteLocationFullName}
-                    </a>
-                  </td>
-                  <td style={{ width: "30%" }}>
-                    <a onClick={() => handleResultClick(workOrder)}>
-                      {workOrder?.CreatedDateTime}
-                    </a>
-                  </td>
-                  {/* <td style={{width:'20%'}}>{workOrder.ProblemType}</td> */}
-                  <td
-                    style={{
-                      width: "20%",
-                      color:
-                        problemTypeColors[workOrder.ProblemType] || "inherit",
-                    }}
-                  >
-                    <a onClick={() => handleResultClick(workOrder)}>
-                      {workOrder?.ProblemType}
-                    </a>
-                  </td>
-                  <td style={{ width: "7%" }}>
-                    <a
-                      className="cwo_key"
-                      target="_blank"
-                      href={`https://ccc-demo.raseel.city/Apps/ivivaFacility/wo-details?key=${workOrder?.CWOKey}`}
-                    ></a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable
+            data={(max, last) => getDataItems(max, last)}
+            pageSize={2}
+            columns={[
+              {
+                title: "CWO ID",
+                width: "28%",
+                renderColumn: (item) => (
+                  <ItemCard
+                    item={item}
+                    subTitleField="CWOID"
+                    className="data-table-item"
+                  />
+                ),
+              },
+              {
+                title: "Location",
+                width: "15%",
+                renderColumn: (item) => (
+                  <ItemCard
+                    item={item}
+                    subTitleField="SiteLocationFullName"
+                    className="data-table-item"
+                  />
+                ),
+              },
+              {
+                title: "Created Date",
+                width: "30%",
+                renderColumn: (item) => (
+                  <ItemCard
+                    item={item}
+                    subTitleField="CreatedDateTime"
+                    className="data-table-item"
+                  />
+                ),
+              },
+              {
+                title: "Problem Type",
+                width: "20%",
+                renderColumn: (item) => (
+                  <ItemCard
+                    item={item}
+                    subTitleField="ProblemType"
+                    className="data-table-item"
+                  />
+                ),
+              },
+              {
+                title: " ",
+                width: "10%",
+                renderColumn: (item) => (
+                  <a
+                    className="cwo_key"
+                    target="_blank"
+                    href={`https://ccc-demo.raseel.city/Apps/ivivaFacility/wo-details?key=${item?.CWOKey}`}
+                  ></a>
+                ),
+              },
+            ]}
+          />
         </div>
       </div>
     </WidgetWrapper>

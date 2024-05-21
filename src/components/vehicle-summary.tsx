@@ -1,5 +1,3 @@
-  
-
 import React, { useState, useEffect } from "react";
 import {
   ResponsiveContainer,
@@ -150,7 +148,6 @@ const VehicleSummaryWidget: React.FunctionComponent<IWidgetProps> = (props) => {
       },
     },
   };
- 
 
   const COLORS = [
     "rgb(99, 245, 227)",
@@ -161,7 +158,6 @@ const VehicleSummaryWidget: React.FunctionComponent<IWidgetProps> = (props) => {
     "rgb(143, 212, 98)",
     "rgb(102, 198, 142)",
   ];
- 
 
   const handleMouseEnter = (index: number) => {
     setActiveIndex(index);
@@ -210,7 +206,6 @@ const VehicleSummaryWidget: React.FunctionComponent<IWidgetProps> = (props) => {
       </g>
     );
   };
- 
 
   const CustomCenterContent = () => (
     <text
@@ -239,12 +234,21 @@ const VehicleSummaryWidget: React.FunctionComponent<IWidgetProps> = (props) => {
       <>
         <text
           x={centerX}
-          y={centerY}
+          y={centerY - 10}
+          textAnchor="middle"
+          dominantBaseline="central"
+          style={{ fontSize: "1.5rem", fontWeight: "bolder" }}
+        >
+          {total.toLocaleString("en-US")}
+        </text>
+        <text
+          x={centerX}
+          y={centerY + 5}
           textAnchor="middle"
           dominantBaseline="central"
           style={{ fontSize: "1rem", fontWeight: "bold" }}
         >
-          {total.toLocaleString("en-US")}
+          Alerts
         </text>
       </>
     );
@@ -263,7 +267,6 @@ const VehicleSummaryWidget: React.FunctionComponent<IWidgetProps> = (props) => {
         ) : (
           <div className="technician_chart" style={{ height: 300 }}>
             <ResponsiveContainer width="100%" height="100%">
-              
               <ResponsivePie
                 valueFormat=","
                 theme={chartTheme}
@@ -318,14 +321,12 @@ const VehicleSummaryWidget: React.FunctionComponent<IWidgetProps> = (props) => {
                     onClick: handleLegendClick,
                   },
                 ]}
-                
                 arcLinkLabelsThickness={2}
                 arcLinkLabelsColor={{ from: "color" }}
                 arcLinkLabel={(e) =>
                   e.id + " (" + e.value.toLocaleString("en-US") + ")"
                 }
                 arcLinkLabelsSkipAngle={5}
-                
                 arcLabelsTextColor="#000000"
                 layers={[
                   "arcs",
@@ -333,8 +334,8 @@ const VehicleSummaryWidget: React.FunctionComponent<IWidgetProps> = (props) => {
                   "arcLinkLabels",
                   "legends",
                   CenteredMetric,
-                ]}  
-              /> 
+                ]}
+              />
             </ResponsiveContainer>
           </div>
         )}
@@ -344,4 +345,3 @@ const VehicleSummaryWidget: React.FunctionComponent<IWidgetProps> = (props) => {
 };
 
 export default VehicleSummaryWidget;
- 
