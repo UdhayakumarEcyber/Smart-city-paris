@@ -289,7 +289,7 @@ const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = ({
           </FormField>
         </div>
 
-        <div className="work_order-content">
+        {/* <div className="work_order-content">
           <DataTable
             data={(max, last) => getDataItems(max, last)}
             pageSize={2}
@@ -351,7 +351,80 @@ const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = ({
               },
             ]}
           />
+        </div> */}
+
+
+        <div className="work_order-content" style={{height:'350px'}}>
+          <DataTable
+            data={(max, last) => getDataItems(max, last)}
+            pageSize={17}
+            columns={[
+              {
+                title: "CWO ID",
+                width: "25%",
+                renderColumn: (item) => (
+                  <ItemCard
+                    item={item}
+                    subTitleField="CWOID"
+                    className="data-table-item"
+                  />
+                ),
+              },
+              {
+                title: "Location",
+                width: "15%",
+                renderColumn: (item) => (
+                  <ItemCard
+                    item={item}
+                    subTitleField="SiteLocationFullName"
+                    className="data-table-item"
+                  />
+                ),
+              },
+              {
+                title: "Created Date",
+                width: "30%",
+                renderColumn: (item) => (
+                  <ItemCard
+                    item={item}
+                    subTitleField="CreatedDateTime"
+                    className="data-table-item"
+                  />
+                ),
+              },
+              {
+                title: "Problem Type",
+                width: "20%",
+                renderColumn: (item) => (
+                  <ItemCard
+                    item={item}
+                    subTitleField="ProblemType"
+                    className="data-table-item"
+                  />
+                ),
+              },
+              {
+                title: "",
+                width: "10%",
+                renderColumn: (item) => (
+                  <a
+                    className="cwo_key"
+                    target="_blank"
+                    href={`https://ccc-demo.raseel.city/Apps/ivivaFacility/wo-details?key=${item?.CWOKey}`}
+                  ></a>
+                ),
+              },
+            ]}
+          />
+
+
+           
+              
         </div>
+
+
+
+
       </div>
     </WidgetWrapper>
   );
