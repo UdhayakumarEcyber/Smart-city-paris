@@ -54,11 +54,11 @@ const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = ({
   workOrderAsset,
   ...props
 }) => {
-  // const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = (props) => {
-
+  
   let { uxpContext } = props;
 
-  let [selected, setSelected] = React.useState<string | null>("op-1");
+  let [selected, setSelected] = React.useState<string | null>("");
+  let [selected1, setSelected1] = React.useState<string | null>("");
   let [inputValue, setInputValue] = React.useState<string | null>("Work Order");
   let [inputValue1, setInputValue1] = React.useState<string | null>("Location");
 
@@ -141,25 +141,7 @@ const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = ({
     return p;
   };
 
-  // React.useEffect(() => {
-  //   workOrders.forEach((workOrder) => {
-  //     const regex = /Pole\s+(.*?)\s+has\s+a\s+total/;
-  //     const match = workOrder.Description.match(regex);
-
-  //     const word = match ? match[1] : null;
-  //     console.log(word);
-
-  //     if (word) {
-  //       getPoleData(word);
-  //     }
-  //   });
-  // }, [workOrders]);
-
-  // React.useEffect(() => {
-  //   var lat = poleData?.latitude;
-  //   var long = poleData?.longitude;
-  //   console.log("To Check Lat and Long", lat, long);
-  // }, [poleData]);
+  
 
   async function getPoleData(poleName: any) {
     await props.uxpContext
@@ -265,94 +247,39 @@ const StreetLightWorkOrder: React.FunctionComponent<IWidgetProps> = ({
             <Select
               selected={selected}
               options={[
-                { label: "All Alert", value: "op-1" },
-                { label: "All Alert 1", value: "op-2" },
-                { label: "All Alert 2", value: "op-3" },
+                { label: "New", value: "op-1" },
+                { label: "Acknowledgement", value: "op-2" },
+                { label: "In Progress", value: "op-3" },
+                { label: "Completed", value: "op-4" }
               ]}
               onChange={(value) => {
                 setSelected(value);
               }}
-              placeholder=" -- select --"
+              placeholder="Status"
             />
             <Select
-              selected={selected}
+              selected={selected1}
               options={[
-                { label: "Alert Type", value: "op-1" },
-                { label: "Alert Type 1", value: "op-2" },
-                { label: "Alert Type 2", value: "op-3" },
+                // { label: "High", value: "op-1" },
+                // { label: "Medium", value: "op-2" },
+                // { label: "Low", value: "op-3" },
+
+                { label: "AC Voltage", value: "op-1" },
+                { label: "Load Fail", value: "op-2" },
+                { label: "Lux Sensor Blocked", value: "op-3" },
+                { label: "Main Fail", value: "op-4" },
+                { label: "Partial Failure", value: "op-5" },
+                { label: "Power Factor", value: "op-6" }, 
+               
+
               ]}
               onChange={(value) => {
-                setSelected(value);
+                setSelected1(value);
               }}
-              placeholder=" -- select --"
+              placeholder="Alert Type"
             />
           </FormField>
-        </div>
-
-        {/* <div className="work_order-content">
-          <DataTable
-            data={(max, last) => getDataItems(max, last)}
-            pageSize={2}
-            columns={[
-              {
-                title: "CWO ID",
-                width: "28%",
-                renderColumn: (item) => (
-                  <ItemCard
-                    item={item}
-                    subTitleField="CWOID"
-                    className="data-table-item"
-                  />
-                ),
-              },
-              {
-                title: "Location",
-                width: "15%",
-                renderColumn: (item) => (
-                  <ItemCard
-                    item={item}
-                    subTitleField="SiteLocationFullName"
-                    className="data-table-item"
-                  />
-                ),
-              },
-              {
-                title: "Created Date",
-                width: "30%",
-                renderColumn: (item) => (
-                  <ItemCard
-                    item={item}
-                    subTitleField="CreatedDateTime"
-                    className="data-table-item"
-                  />
-                ),
-              },
-              {
-                title: "Problem Type",
-                width: "20%",
-                renderColumn: (item) => (
-                  <ItemCard
-                    item={item}
-                    subTitleField="ProblemType"
-                    className="data-table-item"
-                  />
-                ),
-              },
-              {
-                title: " ",
-                width: "10%",
-                renderColumn: (item) => (
-                  <a
-                    className="cwo_key"
-                    target="_blank"
-                    href={`https://ccc-demo.raseel.city/Apps/ivivaFacility/wo-details?key=${item?.CWOKey}`}
-                  ></a>
-                ),
-              },
-            ]}
-          />
-        </div> */}
-
+        </div> 
 
         <div className="work_order-content" style={{height:'350px'}}>
           <DataTable
